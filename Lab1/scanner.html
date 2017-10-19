@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src = "scanner.js"></script>
+    <style>
+    .code-input{
+      width: 100%;
+      height: 80%;
+      font-size: 14px;
+      font-family: "Courier New"
+    }
+    .btn-success{
+      width: 100%;
+      margin-top: 10px;
+    }
+    .no-padding{
+      padding: 0px;
+    }
+    .row{
+      padding:5px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class = "container-fluid">
+      <h1>LFTC Scanner</h1>
+      <div class = "container-fluid">
+        <div class = "row">
+          <div class = "col-md-4">
+            <div class = "row">
+              <textarea class = "code-input" cols = "40" rows = "5" /></textarea>
+            </div>
+            <div class = "row no-padding">
+              <div class = "col-md-12 no-padding">
+                <button class = "btn btn-success btn-lg run-btn">Run</button>
+              </div>
+            </div>
+          </div>
+          <div class = "col-md-2">
+            <div class = "row">
+              <h3>Code table</h3>
+              <table class = "table table-striped">
+                <thead>
+                  <tr>
+                    <th>Atom</th>
+                    <th>Code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>define</td>
+                    <td>1</td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class = "col-md-2">
+            <div class = "row">
+              <h3>PIF table</h3>
+              <table class = "table table-striped">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>-</td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class = "col-md-2">
+            <div class = "row">
+              <h3>Symbol table</h3>
+              <table class = "table table-striped">
+                <thead>
+                  <tr>
+                    <th>Element</th>
+                    <th>CodeST</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>c</td>
+                    <td>100</td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
