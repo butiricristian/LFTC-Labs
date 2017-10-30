@@ -1,8 +1,10 @@
-define Circle(real radius, int x, int y);
-Circle c;
-real circumference, area;
-input(c.radius);
-circumference = 2 * PI * c.radius;
-area = PI * PI * c.radius;
-output(circumference);
-output(area);
+real x, sum;
+int n;
+input(n);
+sum = 0;
+while(n > 0) begin:
+	input(x);
+	sum = sum + x;
+	n = n - 1;
+end;
+output(sum);
