@@ -1,8 +1,9 @@
 import service.Scanner;
+import service.Scanner2;
 
 public class Application {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner();
+        Scanner2 scanner = new Scanner2();
         scanner.scan();
     }
 }

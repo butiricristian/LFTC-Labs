@@ -97,12 +97,7 @@ public class Scanner {
                 } else if (line.matches("^end;$")) {
                     pifTable.add(new Pair<>(codeTable.get("end"), "-"));
                     pifTable.add(new Pair<>(codeTable.get(";"), "-"));
-                } else {
-                    System.out.println("Error on line " + String.valueOf(programLines.indexOf(line) + 1)
-                            + ": This is not a valid statement.");
-                    return;
                 }
-
             }
         }
         printTables();
