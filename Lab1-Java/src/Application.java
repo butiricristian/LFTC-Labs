@@ -1,4 +1,4 @@
-import service.Scanner;
+//import service.Scanner;
 import service.Scanner2;
 
 public class Application {

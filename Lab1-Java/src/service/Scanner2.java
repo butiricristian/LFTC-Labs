@@ -1,6 +1,7 @@
 package service;
 
-import javafx.util.Pair;
+
+import util.Pair;
 
 import java.util.*;
 
@@ -10,10 +11,7 @@ public class Scanner2 {
     private TreeMap<String, String> variablesSymbolTable;
     private ArrayList<Pair<String, String>> pifTable;
     private HashMap<String, String> codeTable;
-    private String declarationsRegex = "int (.*)|real (.*)";
-    private List<Character> logicalSeparators = new ArrayList<>(Arrays.asList('<', '>', '=', '!'));
-    private List<Character> separators = new ArrayList<>(Arrays.asList('(', ')', ';', ',', '+', '-', '*', '/', '%', '.', ' '));
-    private Integer lastCodeTableEntry = 26;
+    private List<Character> separators = new ArrayList<>(Arrays.asList('(', ')', ';', ',', '+', '-', '*', '/', '%', '.', ' ', '<', '>', '=', '!', ':'));
     private Integer lastConstSymbolTableEntry = 2000;
     private Integer lastVariableSymbolTableEntry = 1000;
 
@@ -32,22 +30,24 @@ public class Scanner2 {
                 StringBuilder partialRes = new StringBuilder("");
                 for (int i = 0; i < line.length(); i++) {
                     if(separators.contains(line.charAt(i))){
-                        if(codeTable.keySet().contains(partialRes.toString().trim())){
-                            pifTable.add(new Pair<>(codeTable.get(partialRes.toString().trim()), "-"));
-                        }
-                        else {
-                            if(line.charAt(i) != ' ') {
+                        if(!partialRes.toString().isEmpty()) {
+                            if (codeTable.keySet().contains(partialRes.toString().trim())) {
+                                pifTable.add(new Pair<>(codeTable.get(partialRes.toString().trim()), "-"));
+                            } else {
                                 try {
                                     addConstantOrVariable(partialRes.toString().trim());
                                 } catch (Exception e) {
-                                    System.out.println(e.getMessage());
+                                    System.out.println("Error on line " + String.valueOf(programLines.indexOf(line) + 1) + ": " + e.getMessage());
+                                    return;
                                 }
-                                if (i + 1 < line.length() && logicalSeparators.contains(line.charAt(i + 1))) {
-                                    pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i)) + String.valueOf(line.charAt(i + 1))), "-"));
-                                    i++;
-                                } else {
-                                    pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i))), "-"));
-                                }
+                            }
+                        }
+                        if(line.charAt(i) != ' ' && line.charAt(i) != '\n') {
+                            if (i + 1 < line.length() && line.charAt(i + 1) == '=') {
+                                pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i)) + String.valueOf(line.charAt(i + 1))), "-"));
+                                i++;
+                            } else {
+                                pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i))), "-"));
                             }
                         }
                         partialRes = new StringBuilder("");
@@ -72,7 +72,7 @@ public class Scanner2 {
             constantsSymbolTable.putIfAbsent(value, String.valueOf(++lastConstSymbolTableEntry));
             pifTable.add(new Pair<>(codeTable.get("id"), constantsSymbolTable.get(value)));
         } else {
-            throw new Exception("Error! Symbol not found");
+            throw new Exception("Error! Incorrect identifier");
         }
     }
 

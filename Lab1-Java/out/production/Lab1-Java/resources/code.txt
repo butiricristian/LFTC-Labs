@@ -21,7 +21,8 @@ while 16
 >= 20
 < 21
 > 22
-begin: 23
-end 24
-if 25
-. 26
+begin 23
+: 24
+end 25
+if 26
+. 27
