@@ -1,10 +1,8 @@
-real x, sum;
-int n;
-input(n);
-sum = 0;
-while(n > 0) begin:
-	input(x);
-	sum = sum + x;
-	n = n - 1;
-end;
-outp(sum);
+define Circle(real radius);
+Circle c;
+real circ, area;
+input(c.radius);
+circ = 2 * PI * c.radius;
+area = PI *  9PI * c.radius;
+output(circ);
+output(area);
