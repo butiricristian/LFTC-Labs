@@ -3,6 +3,6 @@ Circle c;
 real circ, area;
 input(c.radius);
 circ = 2 * PI * c.radius;
-area = PI *  9PI * c.radius;
+area = PI * PI * c.radius;
 output(circ);
 output(area);

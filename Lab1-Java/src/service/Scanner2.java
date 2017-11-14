@@ -15,11 +15,17 @@ public class Scanner2 {
     private Integer lastConstSymbolTableEntry = 2000;
     private Integer lastVariableSymbolTableEntry = 1000;
 
+    private FAService faVariables, faConstants, faKeywords;
+
     public Scanner2() {
         constantsSymbolTable = new TreeMap<>();
         variablesSymbolTable = new TreeMap<>();
         pifTable = new ArrayList<>();
         codeTable = new HashMap<>();
+
+        faVariables = new FAService("src/resources/varState.txt", "src/resources/varTransitions.txt", "src/resources/varAlphabet.txt");
+        faConstants = new FAService("src/resources/constState.txt", "src/resources/constTransitions.txt", "src/resources/constAlphabet.txt");
+        faKeywords = new FAService("src/resources/kwState.txt", "src/resources/kwTransitions.txt", "src/resources/kwAlphabet.txt");
     }
 
     public void scan(){
@@ -56,6 +62,36 @@ public class Scanner2 {
                         partialRes.append(line.charAt(i));
                     }
                 }
+            }
+        }
+        printTables();
+    }
+
+    public void scanWithAutomata(){
+        initCodeTable();
+        List<String> programLines = ReadFile.readFile("src/resources/program.txt");
+        if(programLines != null) {
+            for (String line : programLines) {
+//                faKeywords.longestSequence(line).ifPresent((prefix) ->
+//                    pifTable.add(new Pair<>(
+//                            codeTable.get(prefix),
+//                            "-"
+//                    ))
+//                );
+                faVariables.longestSequence(line).ifPresent((prefix) -> {
+                    try {
+                        addConstantOrVariable(prefix);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+//                faConstants.longestSequence(line).ifPresent((prefix) -> {
+//                    try {
+//                        addConstantOrVariable(prefix);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                });
             }
         }
         printTables();
