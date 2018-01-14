@@ -32,7 +32,7 @@ extern void show();
 %left DOT
 
 %%
-program: user_type_def ';' var_declarations ';' statements ';' {printf("Program with user def\n");} | var_declarations ';' statements ';'  {printf("Program without user def\n");}
+program: user_type_def ';' var_declarations ';' statements ';' {printf("Accepted\n");} | var_declarations ';' statements ';'  {printf("Accepted\n");}
 ;
 var_declarations: var_declaration | var_declarations ';' var_declaration {printf("Multiple var declarations\n");}
 ;

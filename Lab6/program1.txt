@@ -1,0 +1,4 @@
+int circ;
+input(circ);
+circ = circ + 1;
+output(circ);

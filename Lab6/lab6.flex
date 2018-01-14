@@ -1,8 +1,9 @@
 %{
 #include<stdlib.h>
 #include<string.h>
+#include<string>
 #include<math.h>
-#include "y.tab.h"
+#include "lab6.tab.h"
 
 typedef struct{
 	int id1;
@@ -239,6 +240,7 @@ void show(){
 	showId();
 	showPIF();
 }
+
 %}
 
 %option noyywrap
@@ -252,37 +254,37 @@ keyword define|\(|real|\)|;|int|input|,|=|\*|\+|-|\/|%|output|while|==|!=|\<=|\>
 
 %%
 print show();
-define {addPIF(yytext, 0); return DEFINE_TOKEN;}
-\( {addPIF(yytext, 0); return yytext[0];}
-real {addPIF(yytext, 0); return TYPE_TOKEN;}
-\) {addPIF(yytext, 0); return yytext[0];}
-; {addPIF(yytext, 0); return yytext[0];}
-int {addPIF(yytext, 0); return TYPE_TOKEN;}
-input {addPIF(yytext, 0); return INPUT_TOKEN;}
-, {addPIF(yytext, 0); return yytext[0];}
-= {addPIF(yytext, 0); return ASSIGNMENT_TOKEN;}
-\* {addPIF(yytext, 0); return MULT;}
-\+ {addPIF(yytext, 0); return ADD;}
-- {addPIF(yytext, 0); return SUBTRACT;}
-\% {addPIF(yytext, 0); return REMAINDER;}
-output {addPIF(yytext, 0); return OUTPUT_TOKEN;}
-while {addPIF(yytext, 0); return WHILE_TOKEN;}
-== {addPIF(yytext, 0); return BOOL_OP;}
-!= {addPIF(yytext, 0); return BOOL_OP;}
-\<= {addPIF(yytext, 0); return BOOL_OP;}
-\>= {addPIF(yytext, 0); return BOOL_OP;}
-\< {addPIF(yytext, 0); return BOOL_OP;}
-\> {addPIF(yytext, 0); return BOOL_OP;}
-begin {addPIF(yytext, 0); return BEGIN_TOKEN;}
-: {addPIF(yytext, 0); return yytext[0];}
-end {addPIF(yytext, 0); return END_TOKEN;}
-if {addPIF(yytext, 0); return IF_TOKEN;}
-\. {addPIF(yytext, 0); return DOT;}
+define 			{addPIF(yytext, 0); return DEFINE_TOKEN;}
+\( 					{addPIF(yytext, 0); return yytext[0];}
+real 				{addPIF(yytext, 0); return TYPE_TOKEN;}
+\) 					{addPIF(yytext, 0); return yytext[0];}
+; 					{addPIF(yytext, 0); return yytext[0];}
+int 				{addPIF(yytext, 0); return TYPE_TOKEN;}
+input 			{addPIF(yytext, 0); return INPUT_TOKEN;}
+, 					{addPIF(yytext, 0); return yytext[0];}
+= 					{addPIF(yytext, 0); return ASSIGNMENT_TOKEN;}
+\* 					{addPIF(yytext, 0); return MULT;}
+\+ 					{addPIF(yytext, 0); return ADD;}
+- 					{addPIF(yytext, 0); return SUBTRACT;}
+\% 					{addPIF(yytext, 0); return REMAINDER;}
+output 			{addPIF(yytext, 0); return OUTPUT_TOKEN;}
+while 			{addPIF(yytext, 0); return WHILE_TOKEN;}
+== 					{addPIF(yytext, 0); return BOOL_OP;}
+!= 					{addPIF(yytext, 0); return BOOL_OP;}
+\<= 				{addPIF(yytext, 0); return BOOL_OP;}
+\>= 				{addPIF(yytext, 0); return BOOL_OP;}
+\< 					{addPIF(yytext, 0); return BOOL_OP;}
+\> 					{addPIF(yytext, 0); return BOOL_OP;}
+begin 			{addPIF(yytext, 0); return BEGIN_TOKEN;}
+end 				{addPIF(yytext, 0); return END_TOKEN;}
+: 					{addPIF(yytext, 0); return yytext[0];}
+if 					{addPIF(yytext, 0); return IF_TOKEN;}
+\. 					{addPIF(yytext, 0); return DOT;}
 
-{constant} { addConst(yytext); return CONST_TOKEN; }
-{id} { addIdentifier(yytext); return ID_TOKEN; }
+{constant} 	{ addConst(yytext); int i; yylval.sval = new char[yyleng]; for(i=0;i<yyleng;i++){ yylval.sval[i] = yytext[i]; } return CONST_TOKEN; }
+{id} 				{ addIdentifier(yytext); int i; yylval.sval = new char[yyleng]; for(i=0;i<yyleng;i++){ yylval.sval[i] = yytext[i]; } return ID_TOKEN; }
 
-[ \t\n] printf("");
+[ \t\n] {printf("");}
 
-. yyerror("Invalid identifier %s!\n", yytext);
+. {printf("Invalid identifier %s!\n", yytext);}
 %%

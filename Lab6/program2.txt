@@ -1,0 +1,9 @@
+int x, y, aux;
+input(x);
+input(y);
+while( y!=0) begin:
+	aux = x%y;
+x = y;
+y = aux;
+end;
+output(x);

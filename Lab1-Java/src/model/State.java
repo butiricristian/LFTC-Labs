@@ -63,5 +63,10 @@ public class State {
         return isFinal;
     }
 
-
+    @Override
+    public String toString() {
+        return "State{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

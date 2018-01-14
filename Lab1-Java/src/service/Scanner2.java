@@ -4,6 +4,7 @@ package service;
 import util.Pair;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Scanner2 {
 
@@ -72,26 +73,83 @@ public class Scanner2 {
         List<String> programLines = ReadFile.readFile("src/resources/program.txt");
         if(programLines != null) {
             for (String line : programLines) {
-//                faKeywords.longestSequence(line).ifPresent((prefix) ->
-//                    pifTable.add(new Pair<>(
-//                            codeTable.get(prefix),
-//                            "-"
-//                    ))
-//                );
-                faVariables.longestSequence(line).ifPresent((prefix) -> {
-                    try {
-                        addConstantOrVariable(prefix);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                while(!line.equals("")) {
+                    Optional<String> prefix;
+                    prefix = faConstants.longestSequence(line.trim());
+                    if (prefix.isPresent()) {
+                        try {
+                            addConstantOrVariable(prefix.get());
+                            line = line.replaceFirst(Pattern.quote(prefix.get()), "").trim();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                });
-//                faConstants.longestSequence(line).ifPresent((prefix) -> {
-//                    try {
-//                        addConstantOrVariable(prefix);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
+                    else {
+                        prefix = faKeywords.longestSequence(line.trim());
+                        if (prefix.isPresent()) {
+                            try {
+                                pifTable.add(new Pair<>(codeTable.get(prefix.get()), "-"));
+                                line = line.replaceFirst(Pattern.quote(prefix.get()), "").trim();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            prefix = faVariables.longestSequence(line.trim());
+                            if (prefix.isPresent()) {
+                                try {
+                                    addConstantOrVariable(prefix.get());
+                                    line = line.replaceFirst(Pattern.quote(prefix.get()), "").trim();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else{
+                                System.out.println("Invalid character!");
+                                return;
+                            }
+                        }
+                    }
+                }
+//                StringBuilder partialRes = new StringBuilder("");
+//                for (int i = 0; i < line.length(); i++) {
+//                    if (separators.contains(line.charAt(i))) {
+//                        if (faKeywords.checkIfSequenceIsAccepted(partialRes.toString().trim())) {
+//                            pifTable.add(new Pair<>(codeTable.get(partialRes.toString().trim()), "-"));
+//                        }
+//                        else if (faConstants.checkIfSequenceIsAccepted(partialRes.toString().trim())) {
+//                            String value = partialRes.toString().trim();
+//                            constantsSymbolTable.putIfAbsent(value, String.valueOf(++lastConstSymbolTableEntry));
+//                            pifTable.add(new Pair<>(codeTable.get("id"), constantsSymbolTable.get(value)));
+//                        }
+//                        else if (faVariables.checkIfSequenceIsAccepted(partialRes.toString().trim()) && partialRes.toString().length() <= 8) {
+//                            String value = partialRes.toString().trim();
+//                            variablesSymbolTable.putIfAbsent(value, String.valueOf(++lastVariableSymbolTableEntry));
+//                            pifTable.add(new Pair<>(codeTable.get("id"), variablesSymbolTable.get(value)));
+//                        }
+//                        else{
+//                            if(!partialRes.toString().isEmpty()){
+//                                System.out.println("Error on line " + String.valueOf(programLines.indexOf(line) + 1) + ": Incorrect identifier");
+//                                return;
+//                            }
+//                        }
+//
+//
+//                        if (i + 1 < line.length() && faKeywords.checkIfSequenceIsAccepted(String.valueOf(line.charAt(i)) + String.valueOf(line.charAt(i+1)))){
+//                            pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i)) + String.valueOf(line.charAt(i + 1))), "-"));
+//                            i++;
+//                        }
+//                        else if (faKeywords.checkIfSequenceIsAccepted(String.valueOf(line.charAt(i)))){
+//                            pifTable.add(new Pair<>(codeTable.get(String.valueOf(line.charAt(i))), "-"));
+//                        }
+//
+//
+//                        partialRes = new StringBuilder("");
 //                    }
-//                });
+//                    else {
+//                        partialRes.append(line.charAt(i));
+//                    }
+//                }
             }
         }
         printTables();

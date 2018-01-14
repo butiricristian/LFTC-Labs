@@ -23,7 +23,7 @@ public class FAService {
 
         initStates();
         initTransitions();
-        initAlphabet();
+//        initAlphabet();
     }
 
     /**

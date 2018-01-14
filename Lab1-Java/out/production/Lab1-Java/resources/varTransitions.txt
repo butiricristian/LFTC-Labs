@@ -1,2 +1,2 @@
-q0|q1|abcdefghhijklmnopqrstuvABCDEFGHIJKLMNOPQRSTUVWXYZ
-q1|q1|abcdefghhijklmnopqrstuvABCDEFGHIJKLMNOPQRSTUVWXYZ
+q0|q1|abcdefghhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+q1|q1|abcdefghhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ

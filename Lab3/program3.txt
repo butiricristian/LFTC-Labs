@@ -2,7 +2,7 @@ real x, sum;
 int n;
 input(n);
 sum = 0;
-while(n > 0) :
+while(n > 0) begin:
 	input(x);
 	sum = sum + x;
 	n = n - 1;

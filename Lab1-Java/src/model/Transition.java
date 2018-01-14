@@ -47,4 +47,13 @@ public class Transition {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Transition{" +
+                "state1Name='" + state1Name + '\'' +
+                ", state2Name='" + state2Name + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
